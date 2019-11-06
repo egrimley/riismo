@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $dos_art = 'README.md';
+my $dos_ebloj = 'ebloj.txt';
+my $dos_tabelo = 'tabelo.txt';
+
+my $art = &legi($dos_art);
+my $ebloj = &legi($dos_ebloj);
+my $tabelo = &legi($dos_tabelo);
+
+my $ebloj_dos = '';
+foreach my $x (split(/\n/, $ebloj)) {
+    $ebloj_dos .= "$1\n" if $x =~ /^ *\+ (\S+-\S+-\S+)$/;
+}
+my $ebloj_art = '';
+foreach my $x (split(/\n/, $art)) {
+    $ebloj_art .= "$1\n" if $x =~ /^\* (\S+o-\S+o-\S+o)$/;
+}
+if ($ebloj_dos ne $ebloj_art) {
+    &diff($ebloj_dos, $ebloj_art);
+    die "\"$dos_ebloj\" malkongruas kun \"$dos_art\"!\n";
+}
+
+$art =~ /```\n(.*)```/s || die;
+my $tab_art = $1;
+my $tab_gen = substr($tabelo, 0, length($tab_art));
+if ($tab_gen ne $tab_art) {
+    &diff($tab_gen, $tab_art);
+    die "\"$dos_tabelo\" malkongruas kun \"$dos_art\"!\n";
+}
+
+sub legi {
+    my ($dos) = @_;
+    open(my $fd, '<:utf8', $dos) || die;
+    my $r = join('', <$fd>);
+    close($fd);
+    return $r;
+}
+
+sub diff {
+    my ($t1, $t2) = @_;
+    die if $t1 eq $t2;
+    open(my $fd1, '>:utf8', 'tmp.1') || die;
+    open(my $fd2, '>:utf8', 'tmp.2') || die;
+    print $fd1 $t1;
+    print $fd2 $t2;
+    close($fd1);
+    close($fd2);
+    system('diff tmp.1 tmp.2') || die;
+}

@@ -1,0 +1,167 @@
+#!/usr/bin/perl
+
+use strict;
+use utf8;
+
+binmode(STDIN, ':utf8');
+binmode(STDOUT, ':utf8');
+
+my $teksto = join('', <STDIN>);
+
+my @ebloj;
+foreach my $x (split(/\n/, $teksto)) {
+    if ($x =~ /^\s*\+ (\S+)$/) {
+        my @t = split(/-/, $1);
+        die unless $#t == 2;
+        die if $t[0] eq $t[1] || $t[0] eq $t[2] || $t[1] eq $t[2];
+        foreach my $t (@t) {
+            die unless $t =~ /^[a-pr-vzĉĝĥĵŝŭ]+o$/;
+        }
+        push(@ebloj, [\@t, &poentoj(@t)]);
+    } else {
+        die unless $x eq '' || $x =~ /^\s*/;
+    }
+}
+
+@ebloj = sort { &kompari($a, $b) } @ebloj;
+
+sub kompari {
+    my ($a, $b) = @_;
+    my ($va, $pa) = @$a;
+    my ($vb, $pb) = @$b;
+    # Unue kompari la poentarojn:
+    my $r = ${$pa}[$#$pa] <=> ${$pb}[$#$pb];
+    return $r if $r;
+    # Se tio ne donas diferencon, kompari la vortojn mem:
+    $r = join(' ', @$va) cmp join(' ', @$vb);
+    return $r if $r;
+    die;
+}
+
+my $lv = 0;
+my $lp = 0;
+foreach my $x (@ebloj) {
+    my ($vv, $pp) = @$x;
+    foreach my $v (@$vv) {
+        $lv = length($v) if length($v) > $lv;
+    }
+    foreach my $p (@$pp) {
+        $lp = length($p) if length($p) > $lp;
+    }
+}
+
+#xx:
+print ' ' x 34, "NEŬ SIM KON OPO TRA LOG ETI RES\n";
+
+foreach my $x (@ebloj) {
+    my ($vv, $pp) = @$x;
+    foreach my $v (@$vv) {
+        printf '%-*s  ', $lv, $v;
+    }
+    foreach my $p (@$pp) {
+        printf '  %*d', $lp, $p;
+    }
+    print "\n";
+}
+
+sub poentoj {
+    # La tri vortoj:
+    my ($gev, $icv, $inv) = @_;
+    # La respondaj radikoj (vortoj sen O-finaĵo):
+    my $ger = substr($gev, 0, length($gev) - 1);
+    my $icr = substr($icv, 0, length($icv) - 1);
+    my $inr = substr($inv, 0, length($inv) - 1);
+
+    # Neŭtralemo: vorto por "gepatro" ŝajnas pli baza
+    my $n;
+    if ($icv =~ /^$ger/ && $inv =~ /^$ger/) {
+        $n = 0; # derivado en ĝusta direkto
+    } elsif ($gev =~ /$icr/ || $gev =~ /$inr/) {
+        $n = 9; # derivado en malĝusta direkto
+    } elsif (&silaboj($gev) < &silaboj($icv) &&
+             &silaboj($gev) < &silaboj($inv)) {
+        $n = 1; # "gepatro" estas malpli longa
+    } elsif (&silaboj($gev) <= &silaboj($icv) &&
+             &silaboj($gev) <= &silaboj($inv)) {
+        $n = 2; # "gepatro" estas ne pli longa
+    } else {
+        $n = 7; # "gepatro" estas pli longa
+    }
+
+    # Simetrio: sama traktado de iĉo kaj ino
+    my $s;
+    if ($gev !~ /$icr|$inr/ && length($icv) == length($inv)) {
+        $s = 0; # plena simetrio
+    } elsif (length($icv) == length($inv)) {
+        $s = 5; # simetrio escepte la vorton "gepatro"
+    } else {
+        $s = 9; # malsimetrio
+    }
+
+    # Kongrueco: ĉu nova lingvaĵo konfliktas kun tradicia?
+    my $k;
+    if ($gev eq 'patro') {
+        $k = 9; # signifo de "patro" ŝanĝiĝas
+    } elsif ($gev eq 'gepatro') {
+        $k = 1; # signifo de "gepatro" iomete ŝanĝiĝas
+    } else {
+        $k = 0; # nenia malkongruo
+    }
+
+    # Oportuneco
+    my $o;
+    if ($gev =~ /^[aeiou][^aeiou]o$/) {
+        $o = 0; # sufikseca vorto
+    } elsif ($gev eq 'tevo') {
+        $o = 1; # "tevo"
+    } else {
+        $o = 3; # malpli oportuna vorto por "gepatro"
+    }
+    # Aldoni poentojn, se vortoj estas tro longaj:
+    $o += 3 * (&silaboj($gev) - 2) if &silaboj($icv) > 2;
+    $o += 3 * (&silaboj($icv) - 3) if &silaboj($icv) > 3;
+    $o += 3 * (&silaboj($inv) - 3) if &silaboj($inv) > 3;
+
+    # Tradicieco: simileco al tradicia lingvo
+    my $t = 0;
+    foreach my $x ($gev, $icv, $inv) {
+        if ($x =~ /^(ge)?patr(iĉ|in)?o$/) {
+            # neniu poento por kombinaĵo el konataj vorteroj
+        } elsif ($x =~ /patr/) {
+            $t += 2; # du poentoj por vorto bazita sur "patr"
+        } elsif ($x =~ /(pajtr|potr)/) {
+            $t += 3; # du poentoj por vorto bazita sur simila radiko
+        } else {
+            $t += 4; # tri poentoj por aliaj vortoj
+        }
+    }
+
+    # Logiko: simpleco de la reguloj
+    my $l;
+    if ($icv eq $ger . 'iĉo' &&
+        $inv eq $ger . 'ino') {
+        $l = 0; # tiel devus esti: Xo-Xiĉo-Xino
+    } elsif ($gev =~ /patr/ && $icv =~ /patr/ && $inv =~ /patr/) {
+        $l = 3; # estas almenaŭ la komuna radiko "patr"
+    } else {
+        $l = 9; # mallogike
+    }
+
+    # Etimologio sekse neŭtrala
+    my $e;
+    if ($gev =~ /^(atr|parent|tev)o$/) {
+        $e = 0; # neŭtrala
+    } else {
+        $e = 1; # malneŭtrala
+    }
+
+    my $poentaro = $n + $s + $k + $o + $t + $l + $e;
+
+    return [$n, $s, $k, $o, $t, $l, $e, $poentaro];
+}
+
+sub silaboj {
+    my ($v) = @_;
+    $v =~ s/[^aeiou]//g;
+    return length($v);
+}

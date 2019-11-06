@@ -1,0 +1,61 @@
+- sama radiko por ĉiuj
+  - gepatro ne havas afikson
+    + patro-patriĉo-patrino
+    + abo-abiĉo-abino
+    + atro-atriĉo-atrino
+    + pajtro-pajtriĉo-pajtrino
+    + parento-parentiĉo-parentino
+    + potro-potriĉo-potrino
+    + tevo-teviĉo-tevino
+  - patriĉo ne havas afikson
+    + gepatro-patro-patrino
+    + gopatro-patro-patrino
+    + patruno-patro-patrino
+  - patrino ne havas afikson
+    + gematro-matriĉo-matro
+    + gomatro-matriĉo-matro
+    + matruno-matriĉo-matro
+  - ĉiu havas afikson
+    + gepatro-gepatriĉo-gepatrino
+    + gopatro-gopatriĉo-gopatrino
+    + patruno-patruniĉo-patrunino
+    + gepatro-patriĉo-patrino
+    + gopatro-patriĉo-patrino
+    + patruno-patriĉo-patrino
+- aparta radiko por gepatro
+  - patro ne havas afikson
+    + abo-patro-patrino
+    + atro-patro-patrino
+    + pajtro-patro-patrino
+    + parento-patro-patrino
+    + potro-patro-patrino
+    + tevo-patro-patrino
+  - patrino ne havas afikson
+    + abo-matriĉo-matro
+    + atro-matriĉo-matro
+    + pajtro-matriĉo-matro
+    + parento-matriĉo-matro
+    + potro-matriĉo-matro
+    + tevo-matriĉo-matro
+  - ambaŭ havas afikson
+    + abo-patriĉo-patrino
+    + atro-patriĉo-patrino
+    + pajtro-patriĉo-patrino
+    + parento-patriĉo-patrino
+    + potro-patriĉo-patrino
+    + tevo-patriĉo-patrino
+- aparta radiko nur patro
+  + gematro-patro-matro
+  + gomatro-patro-matro
+  + matruno-patro-matro
+- aparta radiko por patrino
+  + gepatro-patro-matro
+  + gopatro-patro-matro
+  + patruno-patro-matro
+- tri malsamaj radikoj
+  + abo-patro-matro
+  + atro-patro-matro
+  + pajtro-patro-matro
+  + parento-patro-matro
+  + potro-patro-matro
+  + tevo-patro-matro
