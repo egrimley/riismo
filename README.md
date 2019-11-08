@@ -15,7 +15,7 @@ sekso ne estas esenca parto de la mesaĝo. Mankas tamen ĝenerale
 akceptata rimedo por anstataŭi la Esperantajn radikojn, kiuj tradicie
 indikas nur iĉon, el kiuj kelkaj estas ĉiutagaj, ekzemple *edzo*,
 *knabo* kaj *patro*. Mi prezentas provon sisteme esplori la eblojn por
-anstataŭi tiujn vortojn kaj pritraksi tiujn eblojn laŭ pluraj
+anstataŭi tiujn vortojn kaj pritrakti tiujn eblojn laŭ pluraj
 kriterioj.
 
 ## Antaŭparolo
@@ -167,7 +167,7 @@ problemon de la iĉaj radikoj:
   aldoni la prefikson ge-, kiam neniu el la sufiksoj -iĉ- kaj -in-
   estas uzata.”
 
-* En J-riismo oni kreas novajn seksneaŭtralajn radikojn per aldono de
+* En J-riismo oni kreas novajn seksneŭtralajn radikojn per aldono de
   J: *ajvo*, *fejlo*, *frajto*, ..., *pajtro*, ...
 
 * Diversaj proponoj krei novajn radikojn per pruntado el aliaj
@@ -407,7 +407,7 @@ supozeble estas *patro*, kaj ni povas supozi, ke la vorto por
 
 Kelkaj kriterioj estas jam aluditaj supre. Jen mi provas listi kaj
 koncize priskribi ĉiujn gravajn kriteriojn. Mi ankaŭ proponas manieron
-aljuĝi poentojn laŭ ĉiu kriterio, donante pli grandajn nombojn al
+aljuĝi poentojn laŭ ĉiu kriterio, donante pli grandajn nombrojn al
 malpli bonaj proponoj. La precizaj nombroj estas tute arbitraj, kaj eĉ
 pri la relativa ordo verŝajne estos multaj diversaj opinioj.
 
@@ -509,7 +509,7 @@ Mi sumigas la poentojn por ĉiu el la tri vortoj, tiel ke ekzemple
 
 ### Logiko
 
-La lingvaj reguloj estu kiel eble plaj simplaj.
+La lingvaj reguloj estu kiel eble plej simplaj.
 
 Mi donas poentojn jene:
 
